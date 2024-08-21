@@ -11,10 +11,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker --version'
+                bat 'docker --version'
                 script {
                     // Example of a basic build step
-                    sh 'echo "Building project..."'
+                    bat 'echo "Building project..."'
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Example of a basic test step
-                    sh 'echo "Running tests..."'
+                    bat 'echo "Running tests..."'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // Example of a basic deploy step
-                    sh 'echo "Deploying application..."'
+                    bat 'echo "Deploying application..."'
                 }
             }
         }
