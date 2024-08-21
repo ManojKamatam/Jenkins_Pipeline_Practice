@@ -1,0 +1,39 @@
+pipeline {
+    agent {
+        docker { 
+            image 'alpine' // You can replace this with any other Docker image you want to use
+            label 'docker' // Ensure your Docker agent is labeled correctly
+        }
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/your-repo-url.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    // Example of a basic build step
+                    sh 'echo "Building project..."'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    // Example of a basic test step
+                    sh 'echo "Running tests..."'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Example of a basic deploy step
+                    sh 'echo "Deploying application..."'
+                }
+            }
+        }
+    }
+}
