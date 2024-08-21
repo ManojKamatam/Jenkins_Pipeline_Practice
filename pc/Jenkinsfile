@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    environment {
+        DOCKER_HOST = 'tcp://localhost:2375'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ManojKamatam/Jenkins_Pipeline_Practice.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    // Example of a basic build step
+                    sh 'echo "Building project..."'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    // Example of a basic test step
+                    sh 'echo "Running tests..."'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    // Example of a basic deploy step
+                    sh 'echo "Deploying application..."'
+                }
+            }
+        }
+    }
+}
