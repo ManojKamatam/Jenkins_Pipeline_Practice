@@ -12,8 +12,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker --version'
-            }
-            steps {
                 script {
                     // Example of a basic build step
                     sh 'echo "Building project..."'
