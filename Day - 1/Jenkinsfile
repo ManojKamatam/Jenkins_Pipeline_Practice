@@ -1,14 +1,14 @@
 pipeline {
     agent {
-        docker { 
-            image 'alpine' // You can replace this with any other Docker image you want to use
-            label 'docker' // Ensure your Docker agent is labeled correctly
+        docker {
+            image 'alpine' // Specify the Docker image to use
+            reuseNode true // Reuse the same node (master) where Docker is installed
         }
     }
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/your-repo-url.git', branch: 'main'
+                git url: 'https://github.com/ManojKamatam/Jenkins_Pipeline_Practice.git', branch: 'main'
             }
         }
         stage('Build') {
