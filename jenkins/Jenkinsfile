@@ -15,13 +15,13 @@ pipeline {
 
         stage('Upload to S3') {
             steps {
-                sh "aws s3 cp application.zip s3://${S3_BUCKET}/${S3_KEY}"
+                sh "aws s3 cp app.zip s3://${S3_BUCKET}/${S3_KEY}"
             }
         }
 
         stage('Deploy with Terraform') {
             steps {
-                script {
+                dir('Terraform') {  // Change directory to the terraform folder
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
                 }
