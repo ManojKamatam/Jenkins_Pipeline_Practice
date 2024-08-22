@@ -1,0 +1,52 @@
+pipeline {
+    agent none  // No global agent; each stage will define its own Docker container
+    stages {
+        stage('Database Setup - Oracle DB') {
+            agent {
+                docker {
+                    image 'oracle/database:19.3.0-se2'  // Oracle DB Docker image
+                    args '-p 1521:1521 -p 5500:5500'  // Exposing Oracle DB ports
+                }
+            }
+            steps {
+                script {
+                    sh 'echo "Setting up Oracle Database..."'
+                    // Add DB setup commands here, e.g., running SQL scripts
+                }
+            }
+        }
+        stage('Frontend - Windows Docker') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/windows/servercore:ltsc2022'  // Windows Docker image
+                    args '--isolation=process'  // Necessary for Windows containers on certain hosts
+                }
+            }
+            steps {
+                script {
+                    sh 'echo "Building frontend on Windows container..."'
+                    // Add frontend build commands here
+                }
+            }
+        }
+        stage('Backend - Ubuntu') {
+            agent {
+                docker {
+                    image 'ubuntu:latest'  // Ubuntu Docker image for backend
+                    args '-v /var/lib/jenkins/workspace:/workspace'  // Mount workspace if needed
+                }
+            }
+            steps {
+                script {
+                    sh 'echo "Building backend on Ubuntu container..."'
+                    // Add backend build commands here
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+    }
+}
