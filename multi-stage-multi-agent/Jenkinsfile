@@ -11,21 +11,21 @@ pipeline {
             steps {
                 script {
                     sh 'echo "Setting up MySQL Database..."'
-                    // Add DB setup commands here, e.g., running SQL scripts
+                    // Add DB setup commands here
                 }
             }
         }
-        stage('Frontend - Windows Docker') {
+        stage('Frontend - Nginx') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/windows/servercore:ltsc2022'  // Windows Docker image
-                    args '--isolation=process'  // Necessary for Windows containers on certain hosts
+                    image 'nginx:latest'  // Nginx Docker image
+                    args '-p 80:80'  // Expose port 80 for the web server
                 }
             }
             steps {
                 script {
-                    sh 'echo "Building frontend on Windows container..."'
-                    // Add frontend build commands here
+                    sh 'echo "Setting up Nginx Frontend..."'
+                    // Add frontend setup commands here
                 }
             }
         }
