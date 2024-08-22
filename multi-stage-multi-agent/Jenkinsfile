@@ -1,16 +1,16 @@
 pipeline {
     agent none  // No global agent; each stage will define its own Docker container
     stages {
-        stage('Database Setup - Oracle DB') {
+        stage('Database Setup - MySQL') {
             agent {
                 docker {
-                    image 'oracle/database:19.3.0-se2'  // Oracle DB Docker image
-                    args '-p 1521:1521 -p 5500:5500'  // Exposing Oracle DB ports
+                    image 'mysql:latest'  // MySQL Docker image
+                    args '-e MYSQL_ROOT_PASSWORD=root -p 3306:3306'  // Set root password and expose MySQL port
                 }
             }
             steps {
                 script {
-                    sh 'echo "Setting up Oracle Database..."'
+                    sh 'echo "Setting up MySQL Database..."'
                     // Add DB setup commands here, e.g., running SQL scripts
                 }
             }
